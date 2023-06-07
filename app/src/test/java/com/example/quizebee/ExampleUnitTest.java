@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 import com.example.quizebee.model.Quiz;
 import com.example.quizebee.network.FakeApi;
-import com.example.quizebee.network.OnService;
+import com.example.quizebee.network.FakeApiService;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -27,8 +27,8 @@ public class ExampleUnitTest {
 
     @Test
     public void getShopDetails() throws IOException {
-        OnService onService = new FakeApi().createFakeApiService();
-        Call<List<Quiz>> call = onService.getDataApi();
+        FakeApiService fakeApiService = new FakeApi().createFakeApiService();
+        Call<List<Quiz>> call = fakeApiService.getDataApi();
         List<Quiz> shop = call.execute().body();
         assertFalse(shop.isEmpty());
         assertNotNull(shop);

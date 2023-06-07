@@ -6,7 +6,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FakeApi {
-    public OnService createFakeApiService(){
+    public FakeApiService createFakeApiService(){
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -19,6 +19,6 @@ public class FakeApi {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
-        return retrofit.create(OnService.class);
+        return retrofit.create(FakeApiService.class);
     }
     }
