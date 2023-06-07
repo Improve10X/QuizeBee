@@ -23,6 +23,8 @@ public class QuestionsActivity extends BaseActivity implements OnItemActionListe
     private List<Quiz> quizzes = new ArrayList<>();
     private QuestionAdapter adapter;
 
+    private int currentQuestionNumber = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,25 @@ public class QuestionsActivity extends BaseActivity implements OnItemActionListe
         setupAdapter();
         connectAdapter();
         QuizServiceApi();
+        handlePreviousBtn();
+        handleNextBtn();
+    }
+
+    private void handleNextBtn() {
+        binding.nextBtn.setOnClickListener(v -> {
+            currentQuestionNumber ++;
+            displayQuestion(currentQuestionNumber);
+        });
+    }
+
+    private void handlePreviousBtn() {
+        binding.previesBtn.setOnClickListener(v -> {
+            currentQuestionNumber --;
+            displayQuestion(currentQuestionNumber);
+            if (currentQuestionNumber == 1){
+                binding.previesBtn.setEnabled(false);
+            }
+        });
     }
 
     private void QuizServiceApi() {
@@ -63,6 +84,7 @@ public class QuestionsActivity extends BaseActivity implements OnItemActionListe
         adapter.OnItemActionListener(this);
     }
     public  void  displayQuestion(int questionNo){
+        currentQuestionNumber = questionNo;
         Question question = quizzes.get(0).getQuestions().get(questionNo -1);
         binding.questionTxt.setText(question.getQuestion());
         binding.option1Rb.setText(question.getAnswers().get(0));
